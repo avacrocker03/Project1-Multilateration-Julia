@@ -7,6 +7,24 @@
 =#
 
 satellites = Dict()
-print("Enter satellite locations: ")
-for i in range
-    readline()
+sat1 = Dict()
+sat2 = Dict()
+sat3 = Dict()
+sat4 = Dict()
+print("Enter Satellite & Timing: ")
+for i in range(0,3)
+    if(i == 0)
+        satellites['1'] = readline()
+    elseif (i == 1)
+        satellites['2'] = readline()
+    end
+    # for j in range(0,2)
+    #     if(i == 0)
+    #         sat1['x'] = readline()
+    #         sat1['y'] = readline()
+    #         sat1['z'] = readline()
+    #     end
+    # end
+end
+
+println(sat1)
