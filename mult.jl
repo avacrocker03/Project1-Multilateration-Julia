@@ -6,27 +6,22 @@
  = Implementation: 
 =#
 
-satellites = Dict()
-sat1 = Dict()
-sat2 = Dict()
-sat3 = Dict()
-sat4 = Dict()
-print("Enter Satellite & Timing: ")
+satellites = []
+sat1 = []
+sat2 = []
+sat3 = []
+sat4 = []
+println("Enter Satellite & Timing: ")
 for i in range(0,3)
-    # if(i == 0)
-    #     satellites['1'] = readline()
-    # elseif (i == 1)
-    #     satellites['2'] = readline()
-    # end
-    # # for j in range(0,2)
-    # #     if(i == 0)
-    # #         sat1['x'] = readline()
-    # #         sat1['y'] = readline()
-    # #         sat1['z'] = readline()
-    # #     end
-    # # end
-    println(i)
-    satellites[i] = readline()
+    data = readline()
+    if (i == 0)
+        data = split(data, " ")
+    end
+    push!(satellites, data)
+    
 end
 
+
+
+#satellites = parse(Float64, satellitesStr)
 println(satellites)
