@@ -6,53 +6,62 @@
  = Implementation: 
 =#
 
-satellites = []
-# sat1 = []
-# sat2 = []
-# sat3 = []
-# sat4 = []
-println("Enter Satellite & Timing: ")
-for i in range(0,3)
-    data = readline()
-    if (i == 0)
-        data = split(data, " ")
-        push!(satellites, data)
+function strToFloat(dataStr)
+    floatData = []
+    for str in dataStr
+        str = parse(Float64, str)
+        push!(floatData, str)
     end
-    if (i == 1)
-        data1 = split(data, " ")
-        push!(satellites, data1)
-    end
-    if (i == 2)
-        data2 = split(data, " ")
-        push!(satellites, data2)
-    end
-    if (i == 3)
-        data3 = split(data, " ")
-        push!(satellites, data3)
-    end
-end
-times = []
-
-for i in range(0,1)
-    time = readline()
-    if (i == 0)
-        time = split(time, " ")
-        push!(times, time)
-    end
-    if (i == 1)
-        time1 = split(time, " ")
-        push!(times, time1)
-    end
+    return floatData
 end
 
-#satellites = parse(Float64, satellitesStr)
-println()
-println(satellites)
-println()
-println(times)
-println()
 
-println("g= ,h= ,j= ,m= ,o= ")
-println("+) x= , y= , z= ")
-println("-) x= , y= , z= ")
 
+function main()
+    satellites = []
+    println("Enter Satellite & Timing: ")
+    for i in range(0,3)
+        data = readline()
+        if (i == 0)
+            dataStr = split(data, " ")
+            push!(satellites, strToFloat(dataStr))
+        end
+        if (i == 1)
+            dataStr1 = split(data, " ")
+            push!(satellites, strToFloat(dataStr1))
+        end
+        if (i == 2)
+            dataStr2 = split(data, " ")
+            push!(satellites, strToFloat(dataStr2))
+        end
+        if (i == 3)
+            dataStr3 = split(data, " ")
+            push!(satellites, strToFloat(dataStr3))
+        end
+    end
+    times = []
+
+    for i in range(0,1)
+        time = readline()
+        if (i == 0)
+            timeStr = split(time, " ")
+            push!(times, strToFloat(timeStr))
+        end
+        if (i == 1)
+            timeStr1 = split(time, " ")
+            push!(times, strToFloat(timeStr1))
+        end
+    end
+
+    println()
+    println(satellites)
+    println()
+    println(times)
+    println()
+
+    println("g= ,h= ,j= ,m= ,o= ")
+    println("+) x= , y= , z= ")
+    println("-) x= , y= , z= ")
+end
+
+main()
