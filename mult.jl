@@ -16,7 +16,6 @@ function strToFloat(dataStr)
 end
 
 
-
 function main()
     satellites = []
     println("Enter Satellite & Timing: ")
@@ -54,14 +53,33 @@ function main()
     end
 
     println()
-    println(satellites)
-    println()
     println(times)
     println()
-
     println("g= ,h= ,j= ,m= ,o= ")
     println("+) x= , y= , z= ")
     println("-) x= , y= , z= ")
+
+    xi = satellites[1][1]
+    yi = satellites[1][2]
+    xj = satellites[2][1]
+    yj = satellites[2][2]
+    xk = satellites[3][1]
+    yk = satellites[3][2]
+    xl = satellites[4][1]
+    yl = satellites[4][2]
+
+    xji = satellites[2][1] - satellites[1][1]
+    xki = satellites[3][1] - satellites[1][1]
+    xjk = satellites[2][1] - satellites[3][1]
+    xlk = satellites[4][1] - satellites[3][1]
+    yki = satellites[3][2] - satellites[1][2]
+    yji = satellites[2][2] - satellites[1][2]
+    ylk = satellites[4][2] - satellites[3][2]
+    yjk = satellites[2][2] - satellites[3][2]
+    zji = satellites[2][3] - satellites[1][3]
+    zki = satellites[3][3] - satellites[1][3]
+    zjk = satellites[2][3] - satellites[3][3]
+    zlk = satellites[4][3] - satellites[3][3]
 end
 
 main()
