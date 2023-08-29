@@ -78,7 +78,7 @@ function main()
     end
     times = []
 
-    for i in range()
+    for i in range(0,1)
         time = readline()
         if (i == 0)
             timeStr = split(time, " ")
@@ -106,29 +106,21 @@ function main()
     
 
     a = xCombo(ri,rk,ri,rj,xj,xi,xk,xi)/xCombo(ri,rj,ri,rk,yk,yi,yj,yi) # XijyA = Xikx
+    b = xCombo(ri, rk, ri, rj, zj, zi, zk, zi)/xCombo(ri,rj,ri,rk,yk,yi,yj,yi) # XijyB = Xikz
+    c = xCombo(rk, rl, rk, rj, xj, xk, xl, xk)/xCombo(rk, rj, rk, rl, yl, yk, yj, yk) # XkjyC = Xklx
+    d = xCombo(rk, rl, rk, rj, zj, zk, zl, zk)/xCombo(rk, rj, rk, rl, yl, yk, yj, yk) # XkjyD = Xklz
+    g = (d-b)/(a-c)
     println(a)
-
-
-    # xji = satellites[2][1] - satellites[1][1]
-    # xki = satellites[3][1] - satellites[1][1]
-    # xjk = satellites[2][1] - satellites[3][1]
-    # xlk = satellites[4][1] - satellites[3][1]
-    # yki = satellites[3][2] - satellites[1][2]
-    # yji = satellites[2][2] - satellites[1][2]
-    # ylk = satellites[4][2] - satellites[3][2]
-    # yjk = satellites[2][2] - satellites[3][2]
-    # zji = satellites[2][3] - satellites[1][3]
-    # zki = satellites[3][3] - satellites[1][3]
-    # zjk = satellites[2][3] - satellites[3][3]
-    # zlk = satellites[4][3] - satellites[3][3]
-
-
+    println(b)
+    println(c)
+    println(d)
+    println(g)
     println()
     println(satellites)
     println()
     println(times)
     println()
-    println("g= ,h= ,j= ,m= ,o= ")
+    println("g= ",g , ",h= ,j= ,m= ,o= ")
     println("+) x= , y= , z= ")
     println("-) x= , y= , z= ")
 end
