@@ -6,6 +6,7 @@
  = Implementation: 
 =#
 
+
 function strToFloat(dataStr)
     # converting string input to float
     floatData = []
