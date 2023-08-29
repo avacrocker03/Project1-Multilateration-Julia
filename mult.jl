@@ -66,8 +66,8 @@ end
 function output(g,h,j,m,o,x1,x2,y1,y2,z1,z2,r1,r2)
     # correctly formatting output & converting values to rounded scientific notation
     @printf("g= %.2e, h= %.2e, j= %.2e, m= %.2e, o= %.2e\n",g,h,j,m,o)
-    println("+) x= ",x1, ", y= ",y1 , ", z= ",z1, "; r= ", r1)
-    println("-) x= ",x2, ", y= ",y2 , ", z= ",z2, "; r= ", r2)
+    @printf("+) x= %.0f, y= %.0f, z= %.0f, r= %.0f\n", x1, y1, z1, r1)
+    @printf("-) x= %.0f, y= %.0f, z= %.0f, r= %.0f\n", x2, y2, z2, r2)
 end
 
 function main()
@@ -96,29 +96,12 @@ function main()
 
     while true
         time = readline()
-        
         if isempty(time)
             break
         end
-
         timeStr = split(time, " ")
         push!(times, (strToFloat(timeStr)*10^-9))
     end
-
-
-
-    # @printf("%.2e\n",a)
-    # @printf("%.2e\n",b)
-    # @printf("%.2e\n",c)
-    # @printf("%.2e\n",d)
-    # @printf("%.2e\n",g)
-    # @printf("%.2e\n",i)
-
-    # println()
-    # println(satellites)
-    # println()
-    # println(times)
-    # println()
 
     for i in range(1,length(times))
         ri = distance(times[i][1])
@@ -139,16 +122,30 @@ function main()
         zk = satellites[3][3]
         zl = satellites[4][3]
         
-    
         a = xCombo(ri,rk,ri,rj,xj,xi,xk,xi)/xCombo(ri,rj,ri,rk,yk,yi,yj,yi) # XijyA = Xikx
         b = xCombo(ri, rk, ri, rj, zj, zi, zk, zi)/xCombo(ri,rj,ri,rk,yk,yi,yj,yi) # XijyB = Xikz
         c = xCombo(rk, rl, rk, rj, xj, xk, xl, xk)/xCombo(rk, rj, rk, rl, yl, yk, yj, yk) # XkjyC = Xklx
         d = xCombo(rk, rl, rk, rj, zj, zk, zl, zk)/xCombo(rk, rj, rk, rl, yl, yk, yj, yk) # XkjyD = Xklz
+        e = ((rDiff(ri, rk) * rcCombo(ri, rj, xi, xj, yi, yj, zi, zj)) - (rDiff(ri, rj) * rcCombo(ri, rk, xi, xk, yi, yk, zi, zk))) / (2 * xCombo(ri, rj, ri, rk, yk, yi, yj, yi)) # 2XijyE = RikRij2xyz - RijRik2xyz
+        f = ((rDiff(rk, rl) * rcCombo(rk, rj, xk, xj, yk, yj, zk, zj)) - (rDiff(rk, rj) * rcCombo(rk, rl, xk, xl, yk, yl, zk, zl))) / (2 * xCombo(rk, rj, rk, rl, yl, yk, yj, yk)) # 2XkjyF = RklRkj2xyz - RkjRkl2xyz
         g = (d-b)/(a-c)
+        h = (f-e)/(a-c)
         i = (a*g) + b
-        output(g,0,0,0,0,0,0,0,0,0,0,0,0)
+        j = (a*h) + e
+        k = rcCombo(ri, rk, xi, xk, yi, yk, zi, zk) + (2*coordDiff(xk, xi)*h) + (2*coordDiff(yk, yi)*j)
+        l = 2*((coordDiff(xk, xi) * g) + (coordDiff(yk,yi) * i) + (coordDiff(zk, zi)))
+        m = 4 * (rDiff(ri, rk)^2) * (g^2 + i^2 + 1) - l^2
+        n = 8 * (rDiff(ri, rk)^2) * ((g *(xi - h)) + (i*(yi-j)) + zi) + (2*l*k)
+        o = 4 * (rDiff(ri, rk)^2) * ((xi - h)^2 + (yi-j)^2 + zi^2) - k^2
+        q = n + sign(n) * sqrt(n^2 - (4*m*o))
+        z1 =   q/(2*m)
+        x1 = (g*z1) + h
+        y1 = (i*z1) + j
+        z2 = abs(((2*o)/q) - 2)
+        x2 = abs((g*z2) + h)
+        y2 = ((i*z2) + j)
+        output(g,h,j,m,o,x1,x2,y1,y2,z1,z2,0,0)
     end
-
 end
 
 main()
