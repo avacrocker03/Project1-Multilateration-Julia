@@ -53,6 +53,11 @@ function rcCombo(r1,r2,x1,x2,y1,y2,z1,z2)
     return rxyz
 end
 
+function output(g,h,j,m,o,x1,x2,y1,y2,z1,z2,r1,r2)
+    println("g= ",g , ", h= ", h,", j= ",j, ", m= ",m,", o= ", o)
+    println("+) x= ",x1, ", y= ",y1 , ",z= ",z1, ";r= ", r1)
+    println("-) x= ",x2, ", y= ",y2 , ",z= ",z2, ";r= ", r2)
+end
 
 function main()
     satellites = []
@@ -78,17 +83,17 @@ function main()
     end
     times = []
 
-    for i in range(0,1)
+    while true
         time = readline()
-        if (i == 0)
-            timeStr = split(time, " ")
-            push!(times, (strToFloat(timeStr)*10^-9))
+        
+        if isempty(time)
+            break
         end
-        if (i == 1)
-            timeStr1 = split(time, " ")
-            push!(times, (strToFloat(timeStr1)*10^-9))
-        end
+
+        timeStr = split(time, " ")
+        push!(times, (strToFloat(timeStr)*10^-9))
     end
+
 
     ri = distance(times[1][1])
     rj = distance(times[1][2])
@@ -103,6 +108,10 @@ function main()
     yk = satellites[3][2]
     xl = satellites[4][1]
     yl = satellites[4][2]
+    zi = satellites[1][3]
+    zj = satellites[2][3]
+    zk = satellites[3][3]
+    zl = satellites[4][3]
     
 
     a = xCombo(ri,rk,ri,rj,xj,xi,xk,xi)/xCombo(ri,rj,ri,rk,yk,yi,yj,yi) # XijyA = Xikx
@@ -110,6 +119,7 @@ function main()
     c = xCombo(rk, rl, rk, rj, xj, xk, xl, xk)/xCombo(rk, rj, rk, rl, yl, yk, yj, yk) # XkjyC = Xklx
     d = xCombo(rk, rl, rk, rj, zj, zk, zl, zk)/xCombo(rk, rj, rk, rl, yl, yk, yj, yk) # XkjyD = Xklz
     g = (d-b)/(a-c)
+
     println(a)
     println(b)
     println(c)
@@ -120,9 +130,12 @@ function main()
     println()
     println(times)
     println()
-    println("g= ",g , ",h= ,j= ,m= ,o= ")
-    println("+) x= , y= , z= ")
-    println("-) x= , y= , z= ")
+
+    for k in range(0,size(times))
+        output(g,0,0,0,0,0,0,0,0,0,0,0,0)
+        println(k)
+    end
+
 end
 
 main()
