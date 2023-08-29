@@ -10,7 +10,8 @@
 = Citations:
 = https://www.geeksforgeeks.org/julia-language-introduction/
 = https://docs.julialang.org/en/v1/
-= both above links contributed to the understanding and learning of the 
+= https://docs.julialang.org/en/v1/stdlib/Printf/
+= above links contributed to the understanding and learning of the 
 = Julia syntax and documentation
 =#
 
