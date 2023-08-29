@@ -6,6 +6,8 @@
  = Implementation: 
 =#
 
+using Printf
+
 function strToFloat(dataStr)
     # converting string input to float
     floatData = []
@@ -54,9 +56,10 @@ function rcCombo(r1,r2,x1,x2,y1,y2,z1,z2)
 end
 
 function output(g,h,j,m,o,x1,x2,y1,y2,z1,z2,r1,r2)
-    println("g= ",g , ", h= ", h,", j= ",j, ", m= ",m,", o= ", o)
-    println("+) x= ",x1, ", y= ",y1 , ",z= ",z1, ";r= ", r1)
-    println("-) x= ",x2, ", y= ",y2 , ",z= ",z2, ";r= ", r2)
+    # correctly formatting output & converting values to rounded scientific notation
+    @printf("g= %.2e, h= %.2e, j= %.2e, m= %.2e, o= %.2e\n",g,h,j,m,o)
+    println("+) x= ",x1, ", y= ",y1 , ", z= ",z1, "; r= ", r1)
+    println("-) x= ",x2, ", y= ",y2 , ", z= ",z2, "; r= ", r2)
 end
 
 function main()
@@ -95,45 +98,47 @@ function main()
     end
 
 
-    ri = distance(times[1][1])
-    rj = distance(times[1][2])
-    rk = distance(times[1][3])
-    rl = distance(times[1][4])
 
-    xi = satellites[1][1]
-    yi = satellites[1][2]
-    xj = satellites[2][1]
-    yj = satellites[2][2]
-    xk = satellites[3][1]
-    yk = satellites[3][2]
-    xl = satellites[4][1]
-    yl = satellites[4][2]
-    zi = satellites[1][3]
-    zj = satellites[2][3]
-    zk = satellites[3][3]
-    zl = satellites[4][3]
+    # @printf("%.2e\n",a)
+    # @printf("%.2e\n",b)
+    # @printf("%.2e\n",c)
+    # @printf("%.2e\n",d)
+    # @printf("%.2e\n",g)
+    # @printf("%.2e\n",i)
+
+    # println()
+    # println(satellites)
+    # println()
+    # println(times)
+    # println()
+
+    for i in range(1,length(times))
+        ri = distance(times[i][1])
+        rj = distance(times[i][2])
+        rk = distance(times[i][3])
+        rl = distance(times[i][4])
     
-
-    a = xCombo(ri,rk,ri,rj,xj,xi,xk,xi)/xCombo(ri,rj,ri,rk,yk,yi,yj,yi) # XijyA = Xikx
-    b = xCombo(ri, rk, ri, rj, zj, zi, zk, zi)/xCombo(ri,rj,ri,rk,yk,yi,yj,yi) # XijyB = Xikz
-    c = xCombo(rk, rl, rk, rj, xj, xk, xl, xk)/xCombo(rk, rj, rk, rl, yl, yk, yj, yk) # XkjyC = Xklx
-    d = xCombo(rk, rl, rk, rj, zj, zk, zl, zk)/xCombo(rk, rj, rk, rl, yl, yk, yj, yk) # XkjyD = Xklz
-    g = (d-b)/(a-c)
-
-    println(a)
-    println(b)
-    println(c)
-    println(d)
-    println(g)
-    println()
-    println(satellites)
-    println()
-    println(times)
-    println()
-
-    for k in range(0,size(times))
+        xi = satellites[1][1]
+        yi = satellites[1][2]
+        xj = satellites[2][1]
+        yj = satellites[2][2]
+        xk = satellites[3][1]
+        yk = satellites[3][2]
+        xl = satellites[4][1]
+        yl = satellites[4][2]
+        zi = satellites[1][3]
+        zj = satellites[2][3]
+        zk = satellites[3][3]
+        zl = satellites[4][3]
+        
+    
+        a = xCombo(ri,rk,ri,rj,xj,xi,xk,xi)/xCombo(ri,rj,ri,rk,yk,yi,yj,yi) # XijyA = Xikx
+        b = xCombo(ri, rk, ri, rj, zj, zi, zk, zi)/xCombo(ri,rj,ri,rk,yk,yi,yj,yi) # XijyB = Xikz
+        c = xCombo(rk, rl, rk, rj, xj, xk, xl, xk)/xCombo(rk, rj, rk, rl, yl, yk, yj, yk) # XkjyC = Xklx
+        d = xCombo(rk, rl, rk, rj, zj, zk, zl, zk)/xCombo(rk, rj, rk, rl, yl, yk, yj, yk) # XkjyD = Xklz
+        g = (d-b)/(a-c)
+        i = (a*g) + b
         output(g,0,0,0,0,0,0,0,0,0,0,0,0)
-        println(k)
     end
 
 end
