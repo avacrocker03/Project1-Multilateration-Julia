@@ -2,8 +2,16 @@
  = Author: Ava Crocker, acrocker2021@,my.fit.edu
  = Author: Taylor Carlson, tcarlson2021@my.fit.edu
  = Course: CSE 4250, Fall 2023
- = Project: 
+ = Project: Multilateration in Julia - locate 3D object in space
  = Implementation: 
+=#
+
+#=
+= Citations:
+= https://www.geeksforgeeks.org/julia-language-introduction/
+= https://docs.julialang.org/en/v1/
+= both above links contributed to the understanding and learning of the 
+= Julia syntax and documentation
 =#
 
 using Printf
