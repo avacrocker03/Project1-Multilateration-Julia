@@ -103,6 +103,7 @@ function main()
     yk = satellites[3][2]
     xl = satellites[4][1]
     yl = satellites[4][2]
+    
 
     a = xCombo(ri,rk,ri,rj,xj,xi,xk,xi)/xCombo(ri,rj,ri,rk,yk,yi,yj,yi) # XijyA = Xikx
     println(a)
