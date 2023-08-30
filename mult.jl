@@ -142,9 +142,9 @@ function main()
         z1 =   q/(2*m)
         x1 = (g*z1) + h
         y1 = (i*z1) + j
-        z2 = abs(((2*o)/q) - 2)
-        x2 = abs((g*z2) + h)
-        y2 = ((i*z2) + j)
+        z2 = (((2*o)/q)) 
+        x2 = (g*z2) + h
+        y2 = (i*z2) + j
         output(g,h,j,m,o,x1,x2,y1,y2,z1,z2,0,0)
     end
 end
