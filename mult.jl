@@ -10,12 +10,11 @@
 = Citations:
 = https://www.geeksforgeeks.org/julia-language-introduction/
 = https://docs.julialang.org/en/v1/
-= https://docs.julialang.org/en/v1/stdlib/Printf/
 = above links contributed to the understanding and learning of the 
 = Julia syntax and documentation
 =#
 
-using Printf
+using Printf # importing printf to help with format
 
 function strToFloat(dataStr)
     # converting string input to float
@@ -66,50 +65,53 @@ end
 
 function output(g,h,j,m,o,x1,x2,y1,y2,z1,z2,r1,r2)
     # correctly formatting output & converting values to rounded scientific notation
-    @printf("g= %.2e, h= %.2e, j= %.2e, m= %.2e, o= %.2e\n",g,h,j,m,o)
-    @printf("+) x= %.0f, y= %.0f, z= %.0f, r= %.0f\n", x1, y1, z1, r1)
-    @printf("-) x= %.0f, y= %.0f, z= %.0f, r= %.0f\n", x2, y2, z2, r2)
+    @printf("\ng= %.2e, h= %.2e, j= %.2e, m= %.2e, o= %.2e\n",g,h,j,m,o)
+    @printf("+) x= %.0f, y= %.0f, z= %.0f; r= %.0f\n", x1, y1, z1, r1)
+    @printf("-) x= %.0f, y= %.0f, z= %.0f; r= %.0f\n", x2, y2, z2, r2)
 end
 
 function main()
-    satellites = []
-    println("Enter Satellite & Timing: ")
-    for i in range(0,3)
-        data = readline()
-        if (i == 0)
-            dataStr = split(data, " ")
-            push!(satellites, strToFloat(dataStr))
+    satellites = [] # creating empty array to store satellite coordinates
+    println("Enter Satellite & Timing: ") # promting user for input
+    for i in range(0,3) # iterating through the first 4 lines of input to get satellites ijkl
+        data = readline() # reading input line
+        if (i == 0) # splitting lines by satellite entry (satellite i)
+            dataStr = split(data, " ") # splitting entry line to get individual xyz values
+            push!(satellites, strToFloat(dataStr)) # adding new array of xyz coods to satellite array & convering str to float
         end
-        if (i == 1)
-            dataStr1 = split(data, " ")
-            push!(satellites, strToFloat(dataStr1))
+        if (i == 1) # entry for satellite j
+            dataStr1 = split(data, " ") # splitting xyz vals by space into array
+            push!(satellites, strToFloat(dataStr1)) # adding xyz array to satellite array & converting str to float
         end
-        if (i == 2)
-            dataStr2 = split(data, " ")
-            push!(satellites, strToFloat(dataStr2))
+        if (i == 2) # entry for satellite k
+            dataStr2 = split(data, " ") # splitting xyz vals by space into array
+            push!(satellites, strToFloat(dataStr2)) # adding xyz array to satellite array & converting str to float
         end
-        if (i == 3)
-            dataStr3 = split(data, " ")
-            push!(satellites, strToFloat(dataStr3))
+        if (i == 3) # entry for satellite l
+            dataStr3 = split(data, " ") # splitting xyz vals by space into array
+            push!(satellites, strToFloat(dataStr3)) # adding xyz array to satellite array & converting str to float
         end
     end
-    times = []
 
-    while true
-        time = readline()
-        if isempty(time)
+    times = [] # creating empty array to store times
+
+    while true # looping through input 
+        time = readline() # reading input line
+        if isempty(time) # ending loop when input is blank
             break
         end
-        timeStr = split(time, " ")
-        push!(times, (strToFloat(timeStr)*10^-9))
+        timeStr = split(time, " ") # splitting the times up by spaces and put into array
+        push!(times, (strToFloat(timeStr)*10^-9)) # pushing time array into array storing all times & converting times from nanoseconds to seconds
     end
 
     for i in range(1,length(times))
+        # establishing each satellites distance from the target
         ri = distance(times[i][1])
         rj = distance(times[i][2])
         rk = distance(times[i][3])
         rl = distance(times[i][4])
     
+        # establishing each satellites xyz coordinates
         xi = satellites[1][1]
         yi = satellites[1][2]
         xj = satellites[2][1]
@@ -123,6 +125,7 @@ function main()
         zk = satellites[3][3]
         zl = satellites[4][3]
         
+        # gathering all values for each needed equation to get 
         a = xCombo(ri,rk,ri,rj,xj,xi,xk,xi)/xCombo(ri,rj,ri,rk,yk,yi,yj,yi) # XijyA = Xikx
         b = xCombo(ri, rk, ri, rj, zj, zi, zk, zi)/xCombo(ri,rj,ri,rk,yk,yi,yj,yi) # XijyB = Xikz
         c = xCombo(rk, rl, rk, rj, xj, xk, xl, xk)/xCombo(rk, rj, rk, rl, yl, yk, yj, yk) # XkjyC = Xklx
@@ -145,8 +148,12 @@ function main()
         z2 = (((2*o)/q)) 
         x2 = (g*z2) + h
         y2 = (i*z2) + j
-        output(g,h,j,m,o,x1,x2,y1,y2,z1,z2,0,0)
+        r1 = sqrt(x1^2 + y1^2 + z1^2)
+        r2 = sqrt(x2^2 + y2^2 + z2^2)
+        
+        # putting needed values into the output
+        output(g,h,j,m,o,x1,x2,y1,y2,z1,z2,r1,r2)
     end
-end
-
+end 
+# running the program
 main()
