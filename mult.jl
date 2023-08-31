@@ -104,6 +104,13 @@ function main()
         push!(times, (strToFloat(timeStr)*10^-9)) # pushing time array into array storing all times & converting times from nanoseconds to seconds
     end
 
+    # error handling #! figure out how to distinct times vs satellites
+    if isempty(times) # if no times are inputted
+        println("Invalid Input")
+    elseif length(satellites) > 4 # if less than 4 satellites are inputted
+        println("Invalid Input")
+    end
+
     for i in range(1,length(times))
         # establishing each satellites distance from the target
         ri = distance(times[i][1])
