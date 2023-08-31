@@ -179,6 +179,7 @@ function main()
             output(g,h,j,m,o,x1,x2,y1,y2,z1,z2,r1,r2)
         else
             println("Invalid Input")
+            break
         end
     end
 end 
