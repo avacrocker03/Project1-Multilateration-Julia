@@ -72,54 +72,59 @@ end
 
 function main()
     satellites = [] # creating empty array to store satellite coordinates
-    println("Enter Satellite & Timing: ") # promting user for input
-    for i in range(0,3) # iterating through the first 4 lines of input to get satellites ijkl
-        data = readline() # reading input line
-        if (i == 0) # splitting lines by satellite entry (satellite i)
-            dataStr = split(data, " ") # splitting entry line to get individual xyz values
-            if length(dataStr) == 3
-                push!(satellites, strToFloat(dataStr)) # adding new array of xyz coods to satellite array & convering str to float
-            else
-                break
+    print("Enter File Name: ") # promting user for input
+    fileName = readline()
+    file = open(fileName, "r")
+    for lines in readline(file)
+        println(lines)
+        for i in range(0,3) # iterating through the first 4 lines of input to get satellites ijkl
+            data = lines # reading input line
+            if (i == 0) # splitting lines by satellite entry (satellite i)
+                dataStr = split(data, " ") # splitting entry line to get individual xyz values
+                if length(dataStr) == 3
+                    push!(satellites, strToFloat(dataStr)) # adding new array of xyz coods to satellite array & convering str to float
+                else
+                    break
+                end
+            end
+            if (i == 1) # entry for satellite j
+                dataStr1 = split(data, " ") # splitting xyz vals by space into array
+                if length(dataStr1) == 3
+                    push!(satellites, strToFloat(dataStr1)) # adding xyz array to satellite array & converting str to float
+                else
+                    break
+                end
+            end
+            if (i == 2) # entry for satellite k
+                dataStr2 = split(data, " ") # splitting xyz vals by space into array
+                if length(dataStr2) == 3
+                    push!(satellites, strToFloat(dataStr2)) # adding xyz array to satellite array & converting str to float
+                else
+                    break
+                end
+            end
+            if (i == 3) # entry for satellite l
+                dataStr3 = split(data, " ") # splitting xyz vals by space into array
+                if length(dataStr3) == 3
+                    push!(satellites, strToFloat(dataStr3)) # adding xyz array to satellite array & converting str to float
+                else
+                    break
+                end
             end
         end
-        if (i == 1) # entry for satellite j
-            dataStr1 = split(data, " ") # splitting xyz vals by space into array
-            if length(dataStr1) == 3
-                push!(satellites, strToFloat(dataStr1)) # adding xyz array to satellite array & converting str to float
-            else
+
+        times = [] # creating empty array to store times
+
+        while true # looping through input 
+            time = lines # reading input line
+            if isempty(time) # ending loop when input is blank
                 break
             end
-        end
-        if (i == 2) # entry for satellite k
-            dataStr2 = split(data, " ") # splitting xyz vals by space into array
-            if length(dataStr2) == 3
-                push!(satellites, strToFloat(dataStr2)) # adding xyz array to satellite array & converting str to float
-            else
-                break
-            end
-        end
-        if (i == 3) # entry for satellite l
-            dataStr3 = split(data, " ") # splitting xyz vals by space into array
-            if length(dataStr3) == 3
-                push!(satellites, strToFloat(dataStr3)) # adding xyz array to satellite array & converting str to float
-            else
-                break
-            end
+            timeStr = split(time, " ") # splitting the times up by spaces and put into array
+            push!(times, (strToFloat(timeStr)*10^-9)) # pushing time array into array storing all times & converting times from nanoseconds to seconds
         end
     end
-
-    times = [] # creating empty array to store times
-
-    while true # looping through input 
-        time = readline() # reading input line
-        if isempty(time) # ending loop when input is blank
-            break
-        end
-        timeStr = split(time, " ") # splitting the times up by spaces and put into array
-        push!(times, (strToFloat(timeStr)*10^-9)) # pushing time array into array storing all times & converting times from nanoseconds to seconds
-    end
-
+    close(file)
     # error handling 
     if isempty(times) # if no times are inputted
         println("Invalid Input")
