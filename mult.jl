@@ -72,12 +72,12 @@ end
 
 function main()
     satellites = [] # creating empty array to store satellite coordinates
-    print("Enter File Name: ") # promting user for input
-    fileName = readline()
-    file = open(fileName, "r")
+    #print("Enter File Name: ") # promting user for input
+    #fileName = readline()
+    stdin::IO
+    #file = open(stdin, "r")
     times = [] # creating empty array to store times
-    for lines in readlines(file)
-            println(lines)
+    for lines in readlines(stdin)
             data = lines # reading input line
             dataStr = split(data, " ") # splitting entry line to get individual xyz values
                 if length(dataStr) == 3 # checking for valid input
@@ -85,12 +85,11 @@ function main()
                 elseif length(dataStr) == 4 # checking for valid input
                     push!(times, (strToFloat(dataStr)*10^-9)) # pushing time array into array storing all times & converting times from nanoseconds to seconds
                 else
-                    println("Invalid Input") # error handling
                     break
                 end
     end
 
-    close(file) # closing file
+    #close(file) # closing file
 
 
     for i in range(1,length(times))
@@ -143,7 +142,6 @@ function main()
             # putting needed values into the output
             output(g,h,j,m,o,x1,x2,y1,y2,z1,z2,r1,r2)
         else
-            println("Invalid Input") # error handling
             break
         end
     end
