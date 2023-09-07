@@ -120,7 +120,7 @@ function main()
         push!(times, (strToFloat(timeStr)*10^-9)) # pushing time array into array storing all times & converting times from nanoseconds to seconds
     end
 
-    # error handling #! figure out how to distinct times vs satellites
+    # error handling 
     if isempty(times) # if no times are inputted
         println("Invalid Input")
     elseif length(satellites) > 4 # if less than 4 satellites are inputted
