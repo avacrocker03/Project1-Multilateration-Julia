@@ -65,25 +65,40 @@ end
 
 function output(g,h,j,m,o,x1,x2,y1,y2,z1,z2,r1,r2)
     # correctly formatting output & converting values to rounded scientific notation
-    @printf("\ng= %10.2e, h= %10.2e, j= %10.2e, m= %10.2e, o= %10.2e\n", round(g; digits = 2), round(h; digits = 2), round(j; digits = 2), round(m; digits = 2), round(o; digits = 2))
-    @printf("+) x= %10.0f, y= %10.0f, z= %10.0f; r= %10.0f\n", x1, y1, z1, r1)
-    @printf("-) x= %10.0f, y= %10.0f, z= %10.0f; r= %10.0f\n", x2, y2, z2, r2)
+    @printf("\ng= %.2e, h= %.2e, j= %.2e, m= %.2e, o= %.2e\n",g,h,j,m,o)
+    @printf("+) x= %.0f, y= %.0f, z= %.0f; r= %.0f\n", x1, y1, z1, r1)
+    @printf("-) x= %.0f, y= %.0f, z= %.0f; r= %.0f\n", x2, y2, z2, r2)
 end
 
 function main()
     satellites = [] # creating empty array to store satellite coordinates
-    #print("Enter File Name: ") # promting user for input
-    #fileName = readline()
     stdin::IO
-    #file = open(stdin, "r")
     times = [] # creating empty array to store times
+    strpStr = [] # creating array to store stripped input values
     for lines in readlines(stdin)
             data = lines # reading input line
             dataStr = split(data, " ") # splitting entry line to get individual xyz values
-                if length(dataStr) == 3 # checking for valid input
-                    push!(satellites, strToFloat(dataStr)) # adding new array of xyz coods to satellite array & convering str to float
-                elseif length(dataStr) == 4 # checking for valid input
-                    push!(times, (strToFloat(dataStr)*10^-9)) # pushing time array into array storing all times & converting times from nanoseconds to seconds
+            for str in dataStr
+                strip(str, ' ')
+                strip(str, "")
+                push!(strpStr, str)
+            end
+
+            # println(strpStr)
+            # for str in strpStr
+            #     for i in range(1, length(strpStr))
+            #         if (str == "")
+            #             splice!(strpStr, i)
+                        
+            #         end
+            #     end
+            # end
+
+            println(strpStr)
+                if length(strpStr) == 3 # checking for valid input
+                    push!(satellites, strToFloat(strpStr)) # adding new array of xyz coods to satellite array & convering str to float
+                elseif length(strpStr) == 4 # checking for valid input
+                    push!(times, (strToFloat(strpStr)*10^-9)) # pushing time array into array storing all times & converting times from nanoseconds to seconds
                 else
                     break
                 end
