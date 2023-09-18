@@ -65,7 +65,7 @@ end
 
 function output(g,h,j,m,o,x1,x2,y1,y2,z1,z2,r1,r2)
     # correctly formatting output & converting values to rounded scientific notation
-    @printf("\ng= %10.2e, h= %10.2e, j= %10.2e, m= %10.2e, o= %10.2e\n",g,h,j,m,o)
+    @printf("\ng= %3.2e, h= %3.2e, j= %3.2e, m= %3.2e, o= %3.2e\n",g,h,j,m,o)
     @printf("+) x= %10.0f, y= %10.0f, z= %10.0f; r= %10.0f\n", x1, y1, z1, r1)
     @printf("-) x= %10.0f, y= %10.0f, z= %10.0f; r= %10.0f\n", x2, y2, z2, r2)
 end
@@ -79,19 +79,17 @@ function main()
             data = lines # reading input line
             dataStr = split(data, " ") # splitting entry line to get individual xyz values
             strpStr = dataStr
-            deleteat!(strpStr, findall(x->x=="",strpStr))
+            deleteat!(strpStr, findall(x->x=="",strpStr)) # deleting all extra whitespace
 
-            println(strpStr)
-            if length(strpStr) == 3 # checking for valid input
-                push!(satellites, strToFloat(strpStr)) # adding new array of xyz coods to satellite array & convering str to float
-            elseif length(strpStr) == 4 # checking for valid input
-                push!(times, (strToFloat(strpStr)*10^-9)) # pushing time array into array storing all times & converting times from nanoseconds to seconds
-            else
-                break
-            end
+        if length(strpStr) == 3 # checking for valid input
+            push!(satellites, strToFloat(strpStr)) # adding new array of xyz coods to satellite array & convering str to float
+        elseif length(strpStr) == 4 # checking for valid input
+            push!(times, (strToFloat(strpStr)*10^-9)) # pushing time array into array storing all times & converting times from nanoseconds to seconds
+        else
+            break
+        end
     end
 
-    #close(file) # closing file
 
     for i in range(1,length(times))
         if length(times) > 0 && length(satellites) == 4  # establishing each satellites distance from the target
