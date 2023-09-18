@@ -65,9 +65,9 @@ end
 
 function output(g,h,j,m,o,x1,x2,y1,y2,z1,z2,r1,r2)
     # correctly formatting output & converting values to rounded scientific notation
-    @printf("\ng= %.2e, h= %.2e, j= %.2e, m= %.2e, o= %.2e\n",g,h,j,m,o)
-    @printf("+) x= %.0f, y= %.0f, z= %.0f; r= %.0f\n", x1, y1, z1, r1)
-    @printf("-) x= %.0f, y= %.0f, z= %.0f; r= %.0f\n", x2, y2, z2, r2)
+    @printf("\ng= %10.2e, h= %10.2e, j= %10.2e, m= %10.2e, o= %10.2e\n", round(g; digits = 2), round(h; digits = 2), round(j; digits = 2), round(m; digits = 2), round(o; digits = 2))
+    @printf("+) x= %10.0f, y= %10.0f, z= %10.0f; r= %10.0f\n", x1, y1, z1, r1)
+    @printf("-) x= %10.0f, y= %10.0f, z= %10.0f; r= %10.0f\n", x2, y2, z2, r2)
 end
 
 function main()
